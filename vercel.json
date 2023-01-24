@@ -1,0 +1,29 @@
+{
+    "version":2,
+    "builds" : [
+        {
+            "src": "portfolio/wsgi.py",
+            "use": "@versal/python",
+            "config" : {"maxLambdaSize" : "15mb","runtime":"Python 3.10.9"}
+
+        },
+        {
+            "src": "build_files.sh",
+            "use": "@versal/static-build",
+            "config" : {
+                "disDir" :  "staticfiles_build"
+            }
+
+        }
+    ],
+    "routes":[
+        {
+            "src":"/static/(.*)",
+            "dest":"/static/$1"
+        },
+        {
+            "src":"/(.*)",
+            "dest":"poll/wsgi.py"
+        }
+    ]
+}
